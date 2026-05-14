@@ -1,17 +1,8 @@
+#pragma once
 
-
-#ifndef EASY_FIND_HPP
-# define EASY_FIND_HPP
-
+#include "easyfind.tpp"
+#include <algorithm>
 
 template <typename T>
-T min(const T& a, const T&b)
-{
-    if (a < b)
-        return a;
-    return b;
-}
+typename T::iterator easyfind(T& container, int toFind);
 
-
-
-#endif

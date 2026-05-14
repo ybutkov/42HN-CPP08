@@ -1,4 +1,4 @@
-NAME		= whatever
+NAME		= easyfind
 
 SRC 		= src
 BUILD_DIR 	= build
