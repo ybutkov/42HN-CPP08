@@ -6,7 +6,7 @@
 /*   By: ybutkov <ybutkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:00:57 by ybutkov           #+#    #+#             */
-/*   Updated: 2026/05/14 19:10:31 by ybutkov          ###   ########.fr       */
+/*   Updated: 2026/05/15 16:46:32 by ybutkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void testEasyFind(T& container, int value)
 	}
 	catch (const std::exception& error)
 	{
-		std::cout << error.what() << std::endl;
+		std::cout << "Error: " << error.what() << std::endl;
 	}
 }
 
