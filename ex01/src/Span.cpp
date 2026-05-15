@@ -64,7 +64,7 @@ unsigned int Span::shortestSpan()
 unsigned int Span::longestSpan()
 {
     if (this->size < 2)
-        throw new SpanCalculationException();
+        throw SpanCalculationException();
 
     auto min = std::min_element(std::begin(this->data), std::end(this->data));
     auto max = std::max_element(std::begin(this->data), std::end(this->data));
