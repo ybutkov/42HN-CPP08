@@ -6,7 +6,7 @@
 /*   By: ybutkov <ybutkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 20:53:14 by ybutkov           #+#    #+#             */
-/*   Updated: 2026/05/15 22:21:55 by ybutkov          ###   ########.fr       */
+/*   Updated: 2026/07/09 16:33:15 by ybutkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 #include "MutantStack.hpp"
 #include <iostream>
 #include <stack>
+#include <list>
+#include <vector>
+
 
 namespace {
 	
 	void testMutantStackFromSubject()
 	{
-		std::cout << "=== testMutantStackFromSubject ===" << std::endl;
+		std::cout << "+++ testMutantStackFromSubject +++" << std::endl;
 		MutantStack<int> mstack;
-		// std::stack<int>  mstack;
+		
+		// std::stack<int>  mstack;std::deque<T>
 		mstack.push(5);
 		mstack.push(17);
 		std::cout << "Last element=" << mstack.top() << std::endl;
@@ -64,7 +68,7 @@ namespace {
 
 	void testMutantStackCopyAndAssign()
 	{
-		std::cout << "=== testMutantStackCopyAndAssign ===" << std::endl;
+		std::cout << "+++ testMutantStackCopyAndAssign +++" << std::endl;
 		MutantStack<double> original;
 		original.push(10.42);
 		original.push(20.33);
@@ -77,21 +81,25 @@ namespace {
 		std::cout << "copied top: " << copied.top() << std::endl;
 		std::cout << "assigned top: " << assigned.top() << std::endl;
 		std::cout << "copied size: " << copied.size() << std::endl;
-		std::cout << "assigned size: " << assigned.size() << std::endl << std::endl;
+		std::cout << "assigned size: " << assigned.size() << "\n" << std::endl;
 	}
 
 	void testMutantStackConstAndReverseIterators()
 	{
-		std::cout << "=== testMutantStackConstAndReverseIterators ===" << std::endl;
-		MutantStack<int> mstack;
+		std::cout << "+++ testMutantStackConstAndReverseIterators +++" << std::endl;
+		// typedef std::list<int> Container;
+		typedef std::vector<int> Container;
+
+		
+		MutantStack<int, Container> mstack;
 		mstack.push(1);
 		mstack.push(2);
 		mstack.push(3);
 		mstack.push(4);
 
-		const MutantStack<int> constStack(mstack);
-		MutantStack<int>::const_iterator it = constStack.begin();
-		MutantStack<int>::const_iterator ite = constStack.end();
+		const MutantStack<int, Container> constStack(mstack);
+		MutantStack<int, Container>::const_iterator it = constStack.begin();
+		MutantStack<int, Container>::const_iterator ite = constStack.end();
 		while (it != ite)
 		{
 			std::cout << *it << " ";
@@ -99,8 +107,8 @@ namespace {
 		}
 		std::cout << std::endl;
 
-		MutantStack<int>::const_reverse_iterator rit = constStack.rbegin();
-		MutantStack<int>::const_reverse_iterator rite = constStack.rend();
+		MutantStack<int, Container>::const_reverse_iterator rit = constStack.rbegin();
+		MutantStack<int, Container>::const_reverse_iterator rite = constStack.rend();
 		while (rit != rite)
 		{
 			std::cout << *rit << " ";

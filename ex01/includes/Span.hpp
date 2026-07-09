@@ -4,15 +4,13 @@
 #include <stdexcept>
 #include <iterator>
 #include <type_traits>
-#include <list>
-#include <fstream>
 #include <ostream>
+
 
 class Span
 {
     static constexpr unsigned int DEFAULT_AMOUNT = 16;
     unsigned int N;
-    unsigned int size;
     std::vector<int> data;
 public:
     Span(): Span(DEFAULT_AMOUNT) {};
@@ -22,19 +20,14 @@ public:
     ~Span() {};
 
     const std::vector<int>& getData() const;
+
     void addNumber(int newValue);
     
-    template <typename It>
-    std::enable_if_t<
-        std::is_base_of<
-            std::input_iterator_tag,
-            typename std::iterator_traits<It>::iterator_category
-        >::value
-    >
-    addNumber(It begin, It end);
-    
-    unsigned int shortestSpan();
-    unsigned int longestSpan();
+    template <typename Iterator>
+    void addNumber(Iterator begin, Iterator end);
+
+    unsigned int shortestSpan() const;
+    unsigned int longestSpan() const;
 };
 
 
@@ -52,20 +45,18 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const Span& span);
 
-template <typename It>
-std::enable_if_t<
-    std::is_base_of<
-        std::input_iterator_tag,
-        typename std::iterator_traits<It>::iterator_category
-    >::value
->
-Span::addNumber(It begin, It end)
+
+template <typename Iterator>
+void Span::addNumber(Iterator begin, Iterator end)
 {
+    static_assert(
+        std::is_same_v<typename std::iterator_traits<Iterator>::value_type, int>,
+        "Span::addNumber requires iterators over int");
+
     const unsigned int amount = static_cast<unsigned int>(std::distance(begin, end));
 
-    if (this->size + amount > this->N)
+    if (this->data.size() + amount > this->N)
         throw SpanSizeOutException();
 
     this->data.insert(this->data.end(), begin, end);
-    this->size += amount;
 }

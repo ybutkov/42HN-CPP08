@@ -5,7 +5,8 @@ BUILD_DIR 	= build
 
 INCLUDES 	= -Iincludes
 CXX			= c++
-CXXFLAGS	= -Wall -Wextra -Werror -g -std=c++17 $(INCLUDES) 
+CXXFLAGS	= -Wall -Wextra -Werror -g -std=c++17 $(INCLUDES) -MMD -MP
+DEPS        = $(OBJS:.o=.d)
 
 SRCS_FILES 	= main.cpp
 
@@ -25,6 +26,8 @@ $(BUILD_DIR)/%.o : %.cpp
 	@mkdir -p $(dir $@)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
+-include $(DEPS)
+
 clean:
 	rm -rf $(BUILD_DIR)
 
@@ -37,4 +40,4 @@ v: re
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
   		--error-exitcode=1 ./$(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re v f

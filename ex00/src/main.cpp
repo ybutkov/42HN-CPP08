@@ -6,7 +6,7 @@
 /*   By: ybutkov <ybutkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:00:57 by ybutkov           #+#    #+#             */
-/*   Updated: 2026/05/15 16:46:32 by ybutkov          ###   ########.fr       */
+/*   Updated: 2026/07/06 20:27:38 by ybutkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,35 @@
 #include <vector>
 
 template <typename T>
-void testEasyFind(T& container, int value)
+void testEasyFind(T& container, const std::string& nameContainer, int value)
 {
-	std::cout << "Search " << value << std::endl; 
+	std::cout << "Search " << value << " in <" << nameContainer << ">\n"; 
 	try
 	{
 		auto iter = easyfind(container, value);
-		std::cout << "found " << value << " at " << *iter << std::endl;
+		std::cout << "easyfind(...) found " << value 
+			<< " at pos=" << std::distance(container.begin(), iter) 
+			<< "\n" << std::endl;
 	}
 	catch (const std::exception& error)
 	{
-		std::cout << "Error: " << error.what() << std::endl;
+		std::cout << "Error: " << error.what() << "\n" << std::endl;
 	}
 }
 
 int main()
 {
-	std::vector<int> vector1 = {3, 6, 8, 11};
-	std::list<int> list1 = {1, 2, 3, 4, 5};
-	std::deque<int> deque1 = {10, 20, 30, 40};
+	std::vector<int> vector = {3, 6, 8, 11};
+	std::list<int> list = {1, 2, 3, 4, 5};
+	std::deque<int> deque = {10, 20, 30, 40, 3};
 
-	testEasyFind(vector1, 8);
-	testEasyFind(list1, 4);
-	testEasyFind(deque1, 15);
-	testEasyFind(vector1, 18);
+	for (int target : {8, 4, 15, 18, 3})
+	{
+		std::cout << "====================================================" << std::endl;
+    	testEasyFind(vector, "vector", target);
+    	testEasyFind(list, "list", target);
+    	testEasyFind(deque, "deque", target);
+	}
 
 	return 0;
 }

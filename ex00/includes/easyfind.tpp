@@ -1,3 +1,5 @@
+#pragma once 
+
 #include "easyfind.hpp"
 #include <algorithm>
 #include <stdexcept>
